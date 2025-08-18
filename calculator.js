@@ -6,6 +6,7 @@ const displayVal = document.querySelector('#display-value');
 let check = false;
 let check2 = false;
 let dotSeperator = true;
+let pervious = 0;
 hero.addEventListener('click', (e) => {
   function evaluate() {
     const operation = displayVal.textContent;
@@ -29,6 +30,17 @@ hero.addEventListener('click', (e) => {
     }
   }
   switch (e.target.id) {
+    case 'ans-btn':
+      if (pervious) {
+        displayVal.textContent += pervious;
+      }
+      break;
+    case 'del-btn':
+      const operation = displayVal.textContent;
+      if (operation) {
+        displayVal.textContent = operation.slice(0, -1);
+      }
+      break;
     case 'clear-btn':
       displayVal.textContent = '';
       break;
@@ -42,6 +54,7 @@ hero.addEventListener('click', (e) => {
       evaluate();
       check = false;
       check2 = true;
+      pervious = displayVal.textContent;
       break;
     default:
       if (
@@ -53,15 +66,17 @@ hero.addEventListener('click', (e) => {
       ) {
         if (check) evaluate();
         displayVal.textContent += e.target.textContent;
+
         check = true;
+
         dotSeperator = true;
-        check2 =false
+        check2 = false;
       } else {
         if (check2) {
           displayVal.textContent = '';
         }
         displayVal.textContent += e.target.textContent;
-        check2 =false
+        check2 = false;
       }
   }
 });
@@ -72,7 +87,9 @@ const subtract = (num1, num2) => num1 - num2;
 
 const multiply = (num1, num2) => num1 * num2;
 
-const divide = (num1, num2) => num1 / num2;
+const divide = (num1, num2) => {
+  return num1 / num2;
+};
 
 const power = (num1, num2) => num1 ** num2;
 
@@ -93,6 +110,10 @@ function operate(num1, operator, num2) {
       break;
     case '**':
       result = power(num1, num2);
+  }
+  if (result == Infinity) {
+    console.error(`you can't divide by zero`);
+    return 'ERR';
   }
   result = result % 1 === 0 ? result : floor2Decimal(result);
   return result;
