@@ -13,6 +13,13 @@ body {
 .display {
   border: 1px solid blue;
   height: 130px;
+  display: flex;
+  align-items: center;
+}
+.value{
+  font-size: 50px;
+  color: white;
+  margin: 0px 10px;
 }
 .container {
 
@@ -22,7 +29,7 @@ body {
   gap: 7px;
   margin-bottom: 5px;
 }
-.test {
+.calcBtn {
   height: 70px;
   width: 120px;
   background-color: blueviolet;
