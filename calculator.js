@@ -3,80 +3,65 @@
 const hero = document.querySelector('#main-hero');
 const clear = document.querySelector('#clear-btn');
 const displayVal = document.querySelector('#display-value');
-let check = false;
-let check2 = false;
-let dotSeperator = true;
-let pervious = 0;
+
+let containsOperator = false;
+let resultDisplayed = false;
+let decimalPointAllowed = true;
+let previousResult = 0;
+
 hero.addEventListener('click', (e) => {
-  function evaluate() {
-    const operation = displayVal.textContent;
-    const op = operation.includes('+')
-      ? '+'
-      : operation.includes('-')
-      ? '-'
-      : operation.includes('**')
-      ? '**'
-      : operation.includes('/')
-      ? '/'
-      : operation.includes('*')
-      ? '*'
-      : 'ERR';
-    if (op !== 'ERR' && !isNaN(operation.at(-1))) {
-      const i = operation.indexOf(op);
-      const num1 = +operation.slice(0, i);
-      const operator = op;
-      const num2 = +operation.slice(i + op.length);
-      displayVal.textContent = operate(num1, operator, num2);
-    }
-  }
+  if (!e.target.classList.contains('calcBtn')) return;
+
   switch (e.target.id) {
     case 'ans-btn':
-      if (pervious) {
-        displayVal.textContent += pervious;
+      if (previousResult) {
+        displayVal.textContent += previousResult;
       }
       break;
+
     case 'del-btn':
       const operation = displayVal.textContent;
       if (operation) {
         displayVal.textContent = operation.slice(0, -1);
       }
       break;
+
     case 'clear-btn':
       displayVal.textContent = '';
       break;
+
     case 'dot-btn':
-      if (displayVal.textContent.at(-1) !== '.' && dotSeperator) {
+      if (displayVal.textContent.at(-1) !== '.' && decimalPointAllowed) {
         displayVal.textContent += '.';
-        dotSeperator = false;
+        decimalPointAllowed = false;
       }
       break;
+
     case 'equal-btn':
       evaluate();
-      check = false;
-      check2 = true;
-      pervious = displayVal.textContent;
+      containsOperator = false;
+      resultDisplayed = true;
+      previousResult = displayVal.textContent;
       break;
+
     default:
-      if (
-        e.target.textContent === '+' ||
-        e.target.textContent === '-' ||
-        e.target.textContent === '/' ||
-        e.target.textContent === '*' ||
-        e.target.textContent === '**'
-      ) {
-        if (check) evaluate();
+      if (isBtnOperator(e)) {
+        if (containsOperator) {
+          evaluate();
+        }
+
         displayVal.textContent += e.target.textContent;
 
-        check = true;
+        containsOperator = true;
 
-        dotSeperator = true;
-        check2 = false;
+        decimalPointAllowed = true;
+        resultDisplayed = false;
       } else {
-        if (check2) {
+        if (resultDisplayed) {
           displayVal.textContent = '';
         }
         displayVal.textContent += e.target.textContent;
-        check2 = false;
+        resultDisplayed = false;
       }
   }
 });
@@ -118,4 +103,43 @@ function operate(num1, operator, num2) {
   result = result % 1 === 0 ? result : floor2Decimal(result);
   return result;
 }
+
 const floor2Decimal = (num) => Math.floor(num * 100) / 100;
+
+function checkOp(operation) {
+  const op = operation.includes('+')
+    ? '+'
+    : operation.includes('-') && !operation.startsWith('-')
+    ? '-'
+    : operation.includes('**')
+    ? '**'
+    : operation.includes('/')
+    ? '/'
+    : operation.includes('*')
+    ? '*'
+    : 'ERR';
+  return op;
+}
+
+function evaluate() {
+  let operation = displayVal.textContent;
+  let sign = 1;
+  let op = checkOp(operation);
+  if (operation.startsWith('-')) {
+    sign = -1;
+    operation = operation.slice(1);
+    op = checkOp(operation);
+  }
+  if (op !== 'ERR' && !isNaN(operation.at(-1))) {
+    const i = operation.indexOf(op);
+    const num1 = sign * +operation.slice(0, i);
+    const operator = op;
+    const num2 = +operation.slice(i + op.length);
+    displayVal.textContent = operate(num1, operator, num2);
+  }
+}
+
+function isBtnOperator(event) {
+  const operators = ['+', '-', '/', '*', '**'];
+  return operators.includes(event.target.textContent);
+}
