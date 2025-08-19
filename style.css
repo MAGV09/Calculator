@@ -1,6 +1,7 @@
 body {
   background-color: #f0f0f0;
   font-family: Arial, sans-serif;
+  text-align: center;
 }
 .hero {
   display: flex;
@@ -50,4 +51,10 @@ body {
   border-radius: 20px;
   border: 1px solid #ccc;
   margin: 7px;
+}
+.title{
+  text-align: center;
+  color: #333;
+  font-size: 48px;
+  margin: 30px ;
 }
