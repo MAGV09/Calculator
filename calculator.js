@@ -183,6 +183,7 @@ document.addEventListener('keydown', (e) => {
   if (key >= '0' && key <= '9') {
     document.querySelector(`#btn-${key}`).click();
   }
+  e.preventDefault();
   switch (key) {
     case '+':
       document.querySelector(`#plus-btn`).click();
