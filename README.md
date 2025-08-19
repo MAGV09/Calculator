@@ -1,7 +1,7 @@
 # Calculator
 
-<h2>A simple calculator built with HTML, CSS, and JavaScript.
-It supports basic arithmetic operations (addition, subtraction, multiplication, division, exponentiation), decimal numbers, deleting, clearing, and keyboard input.</h2>
+<h3>A simple calculator built with HTML, CSS, and JavaScript.<br>
+It supports basic arithmetic operations (addition, subtraction, multiplication, division, exponentiation), decimal numbers, deleting, clearing, and keyboard input.</h3>
 
 <h3>Keyboard ShortCuts</h3>
 <ul> 
