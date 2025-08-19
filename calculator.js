@@ -11,26 +11,26 @@ let decimalPointAllowed = true;
 let previousResult = 0;
 
 const buttons = [
-  { text: '**' },
+  { text: '**', id: 'exp-btn' },
   { text: 'Del', id: 'del-btn' },
   { text: 'Ans', id: 'ans-btn' },
   { text: 'Clear', id: 'clear-btn' },
-  { text: '7' },
-  { text: '8' },
-  { text: '9' },
-  { text: '/' },
-  { text: '4' },
-  { text: '5' },
-  { text: '6' },
-  { text: '*' },
-  { text: '1' },
-  { text: '2' },
-  { text: '3' },
-  { text: '-' },
-  { text: '0' },
+  { text: '7', id: 'btn-7' },
+  { text: '8', id: 'btn-8' },
+  { text: '9', id: 'btn-9' },
+  { text: '/', id: 'div-btn' },
+  { text: '4', id: 'btn-4' },
+  { text: '5', id: 'btn-5' },
+  { text: '6', id: 'btn-6' },
+  { text: '*', id: 'multi-btn' },
+  { text: '1', id: 'btn-1' },
+  { text: '2', id: 'btn-2' },
+  { text: '3', id: 'btn-3' },
+  { text: '-', id: 'minus-btn' },
+  { text: '0', id: 'btn-0' },
   { text: '.', id: 'dot-btn' },
   { text: '=', id: 'equal-btn' },
-  { text: '+' },
+  { text: '+', id: 'plus-btn' },
 ];
 
 buttons.forEach((button) => {
@@ -177,3 +177,7 @@ function isBtnOperator(event) {
   const operators = ['+', '-', '/', '*', '**'];
   return operators.includes(event.target.textContent);
 }
+
+hero.addEventListener('keydown', (e) => {
+  console.log(`Hello key:${e.key} `);
+});
