@@ -178,6 +178,53 @@ function isBtnOperator(event) {
   return operators.includes(event.target.textContent);
 }
 
-hero.addEventListener('keydown', (e) => {
-  console.log(`Hello key:${e.key} `);
+document.addEventListener('keydown', (e) => {
+  let key = e.key;
+  if (key >= '0' && key <= '9') {
+    document.querySelector(`#btn-${key}`).click();
+  }
+  switch (key) {
+    case '+':
+      document.querySelector(`#plus-btn`).click();
+      break;
+
+    case '-':
+      document.querySelector(`#minus-btn`).click();
+      break;
+
+    case '*':
+      document.querySelector(`#multi-btn`).click();
+      break;
+
+    case '/':
+      document.querySelector(`#div-btn`).click();
+      break;
+
+    case '^':
+      document.querySelector(`#exp-btn`).click();
+      break;
+
+    case '=':
+    case 'Enter':
+      document.querySelector(`#equal-btn`).click();
+      break;
+
+    case '.':
+      document.querySelector(`#dot-btn`).click();
+      break;
+
+    case 'Backspace':
+    case 'Delete':
+      document.querySelector(`#del-btn`).click();
+      break;
+
+    case 'c':
+      document.querySelector(`#clear-btn`).click();
+
+      break;
+
+    case 'r':
+      document.querySelector(`#ans-btn`).click();
+      break;
+  }
 });
