@@ -3,11 +3,45 @@
 const hero = document.querySelector('#main-hero');
 const clear = document.querySelector('#clear-btn');
 const displayVal = document.querySelector('#display-value');
+const buttonsContainer = document.querySelector('#main-content');
 
 let containsOperator = false;
 let resultDisplayed = false;
 let decimalPointAllowed = true;
 let previousResult = 0;
+
+const buttons = [
+  { text: '**' },
+  { text: 'Del', id: 'del-btn' },
+  { text: 'Ans', id: 'ans-btn' },
+  { text: 'Clear', id: 'clear-btn' },
+  { text: '7' },
+  { text: '8' },
+  { text: '9' },
+  { text: '/' },
+  { text: '4' },
+  { text: '5' },
+  { text: '6' },
+  { text: '*' },
+  { text: '1' },
+  { text: '2' },
+  { text: '3' },
+  { text: '-' },
+  { text: '0' },
+  { text: '.', id: 'dot-btn' },
+  { text: '=', id: 'equal-btn' },
+  { text: '+' },
+];
+
+buttons.forEach((button) => {
+  const btn = document.createElement('button');
+  btn.textContent = button.text;
+  if (button.id) {
+    btn.id = button.id;
+  }
+  btn.classList.add('calcBtn');
+  buttonsContainer.appendChild(btn);
+});
 
 hero.addEventListener('click', (e) => {
   if (!e.target.classList.contains('calcBtn')) return;
